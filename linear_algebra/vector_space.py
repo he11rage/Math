@@ -5,7 +5,7 @@ class VectorSpace:
     def __init__(self, basis_vectors):
         self.basis = basis_vectors
         
-    def linear_combination(self, coef):
+    def linear_combination(self, coef) -> "Vector":
         result = self.basis[0] * 0
         pairs = zip(self.basis, coef)
         for v, c in pairs:
