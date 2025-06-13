@@ -69,40 +69,53 @@ class Matrix:
         if self.size[0] != self.size[1]:
             raise ValueError("Matrix should be quadratic!")
 
-        triangularized_matrix, perm_count = self.triangularize(return_perm_count=True)
+        triangularized_matrix, perm_count, is_singular = self.triangularize(
+            return_info=True
+        )
+        if is_singular:
+            return 0
         det = 1
         for i in range(self.size[0]):
             det *= triangularized_matrix[i][i]
 
-        return round(det * (-1)**perm_count)
+        return round(det * (-1) ** perm_count)
 
-    def triangularize(self, return_perm_count=False):
+    def triangularize(self, return_info=False):
         res = self.copy()
         perm_count = 0
+        is_singular = False
 
         for i in range(self.size[0]):
-            num_row, max_el = 0, 0
+            num_row, max_el = i, abs(res[i][i])
 
             for j in range(i, self.size[0]):
-                if abs(res[j][i]) > abs(max_el):
-                    max_el = res[j][i]
+                if abs(res[j][i]) > max_el:
+                    max_el = abs(res[j][i])
                     num_row = j
 
             if max_el == 0:
-                return 0
+                is_singular = True
+                continue
 
             if num_row != i:
+                res[i], res[num_row] = res[num_row], res[i]
+                perm_count += 1
+                
+            lead = res[i][i]
+            if lead != 0:
                 for j in range(self.size[1]):
-                    res[i][j], res[num_row][j] = res[num_row][j], res[i][j]
-                    perm_count += 1
+                    res[i][j] /= lead
 
-            for j in range(i + 1, self.size[0]):
-                coef = res[j][i] / res[i][i]
-                for k in range(self.size[1]):
-                    res[j][k] -= res[i][k] * coef
+            for j in range(self.size[0]):
+                if j != i:
+                    coef = res[j][i]
+                    for k in range(self.size[1]):
+                        res[j][k] -= res[i][k] * coef
+                else:
+                    continue
 
-        if return_perm_count:
-            return (res, perm_count)
+        if return_info:
+            return (res, perm_count, is_singular)
         else:
             return res
 
