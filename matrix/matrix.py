@@ -100,7 +100,7 @@ class Matrix:
             if num_row != i:
                 res[i], res[num_row] = res[num_row], res[i]
                 perm_count += 1
-                
+
             lead = res[i][i]
             if lead != 0:
                 for j in range(self.size[1]):
@@ -111,8 +111,6 @@ class Matrix:
                     coef = res[j][i]
                     for k in range(self.size[1]):
                         res[j][k] -= res[i][k] * coef
-                else:
-                    continue
 
         if return_info:
             return (res, perm_count, is_singular)
