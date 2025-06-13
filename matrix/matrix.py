@@ -10,12 +10,20 @@ class Matrix:
         return (len(self.matrix), len(self.matrix[0]))
         
     def copy(self) -> "Matrix":
-        return Matrix(self.matrix)
+        size = self.shape()
+        new_matrix = []
+        for i in range(size[0]):
+            row = []
+            for j in range(size[1]):
+                row.append(self.matrix[i][j])
+            new_matrix.append(row)
+                
+        return Matrix(new_matrix)
     
     def __getitem__(self, index):
         return self.matrix[index]
     
-    def __repr__(self):
+    def __repr__(self): 
         rows = []
         for row in self.matrix:
             row_str = ", ".join(str(x) for x in row)

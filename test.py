@@ -5,13 +5,12 @@ from matrix import Matrix
 matrix = Matrix([[1, 2, 3], [1, 3, 2], [3, 2, 1]])
 second_matrix = Matrix([[1, 2, 3], [1, 3, 2], [3, 2, 1]])
 
-print(matrix.shape())
-print(matrix.add(second_matrix))
 
-x = Vector2D(0, 0)
-y = Vector2D(0, 1)    
-space2d = VectorSpace([x, y])
+add_matrix = matrix.add(second_matrix)
 
-z = space2d.linear_combination([3, 4])
+copy_matrix = matrix.copy()
 
-print(z)
+
+print(matrix)
+print(add_matrix)
+print(copy_matrix)
