@@ -4,8 +4,9 @@ from matrix import Matrix
 
 matrix = Matrix(
     [
-        [2, 1],
-        [2, 0]
+        [2, 1, 5],
+        [0, 1, 3],
+        [0, 1, 2]
     ]
 )
 
@@ -24,3 +25,5 @@ print(f"\n Обратная матрица: \n{inverse}")
 prov = matrix.multiply(inverse)
 
 print(f"\n Умножение на исходную обратной: \n{prov}")
+
+print(f"Собственные значения: {matrix.eigen_values()}")
