@@ -206,11 +206,5 @@ class Matrix:
         return
 
     def eigen_values(self) -> list[float]:
-        triang_matrix = self.triangularize()
-        eigen_values = []
-        if triang_matrix == self.matrix:
-            for i in range(self.size[0]):
-                eigen_values.append(triang_matrix[i][i])
-            return eigen_values
         return
         
